@@ -70,7 +70,7 @@
 
         /* 优势栏 */
         .advantage-bar { background: white; padding: 35px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.04); margin: 20px 0; }
-        .advantage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .advantage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .advantage-item { text-align: center; padding: 20px; border-radius: 12px; transition: all 0.3s; }
         .advantage-item:hover { background: #fff5f2; transform: translateY(-4px); }
         .advantage-item i { font-size: 36px; color: #f25c27; margin-bottom: 12px; display: block; }
@@ -91,23 +91,34 @@
         }
         .scroll-track:active { cursor: grabbing; }
 
-        /* 工厂车间 两行 */
+        /* 工厂车间 自动滚动 */
+        .auto-scroll-outer { width: 100%; overflow: hidden; padding: 10px 0 25px; }
         .gongchang-grid {
-            display: grid;
-            grid-template-rows: repeat(2, auto);
-            grid-auto-flow: column;
-            grid-auto-columns: 360px;
-            gap: 18px; width: max-content;
+            display: flex;
+            gap: 18px;
+            width: max-content;
+            animation: autoScrollLeft 35s linear infinite;
         }
+        .auto-scroll-outer:hover .gongchang-grid { animation-play-state: paused; }
         .gongchang-item {
+            width: 360px;
             background: white; border-radius: 12px; overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
         }
         .gongchang-item:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
         .gongchang-img { width: 100%; height: 210px; object-fit: cover; display: block; }
 
-        /* 展厅 单行 */
-        .zhanting-list { display: flex; gap: 20px; width: max-content; }
+        /* 展厅手动滚动 */
+        .zhanting-outer {
+            width: 100%; overflow-x: auto; overflow-y: hidden;
+            padding: 10px 20px 25px;
+            scrollbar-width: thin; scrollbar-color: #f25c27 #f1f1f1;
+            cursor: grab; user-select: none;
+        }
+        .zhanting-outer:active { cursor: grabbing; }
+        .zhanting-list {
+            display: flex; gap: 20px; width: max-content;
+        }
         .zhanting-item {
             width: 380px; flex-shrink: 0;
             background: white; border-radius: 12px; overflow: hidden;
@@ -115,6 +126,11 @@
         }
         .zhanting-item:hover { transform: translateY(-8px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
         .zhanting-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+
+        @keyframes autoScrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
         /* 灯箱 */
         .lightbox {
@@ -172,6 +188,7 @@
         .social-instagram { background: linear-gradient(135deg, #e4405f 0%, #d2304c 100%); }
         .social-youtube { background: linear-gradient(135deg, #ff0000 0%, #e60000 100%); }
         .social-douyin { background: linear-gradient(135deg, #fe2c55 0%, #e8244a 100%); }
+        .social-threads { background: linear-gradient(135deg, #000 0%, #333 100%); }
 
         /* 移动端 */
         @media (max-width: 768px) {
@@ -199,7 +216,7 @@
     <div class="container">
         <div class="top-left">
             <span><i class="fa-solid fa-phone"></i> +86 15318298038</span>
-            <span><i class="fa-solid fa-envelope"></i> aba88588@gmail.com</span>
+            <span><i class="fa-solid fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="11707370292924292951767c70787d3f727e7c">[email&#160;protected]</a></span>
             <span><i class="fa-solid fa-location-dot"></i> 中国山东省威海市文登经济开发区惠州路8号</span>
         </div>
         <div class="lang-switch">
@@ -246,11 +263,7 @@
 <section class="advantage-bar">
     <div class="container">
         <div class="advantage-grid">
-            <div class="advantage-item">
-                <i class="fa-solid fa-factory"></i>
-                <h3 class="translate" data-zh="合作工厂" data-en="Partner Factory" data-ar="مصنع شريك" data-ru="Завод-партнер" data-es="Fábrica asociada" data-hi="साझेदार कारखाना">合作工厂</h3>
-                <p class="translate" data-zh="威力工具集团" data-en="Maxpower Tools Group" data-ar="مجموعة ماكسباور" data-ru="Maxpower Tools Group" data-es="Maxpower Tools Group" data-hi="मैक्सपावर टूल्स">威力工具集团</p>
-            </div>
+
             <div class="advantage-item">
                 <i class="fa-solid fa-box-open"></i>
                 <h3 class="translate" data-zh="支持小批量" data-en="Small Orders OK" data-ar="طلبات صغيرة مقبولة" data-ru="Малые заказы" data-es="Pedidos pequeños" data-hi="छोटे ऑर्डर">支持小批量</h3>
@@ -275,8 +288,19 @@
     <div class="container">
         <h2 class="section-title translate" data-zh="生产车间" data-en="Production Workshop" data-ar="ورشة الإنتاج" data-ru="Производственный цех" data-es="Taller de producción" data-hi="उत्पादन कार्यशाला">生产车间</h2>
     </div>
-    <div class="scroll-track" id="gongchangTrack">
+    <div class="auto-scroll-outer" id="gongchangOuter">
         <div class="gongchang-grid">
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang1.jpg" class="gongchang-img" alt="车间1" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang2.jpg" class="gongchang-img" alt="车间2" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang3.jpg" class="gongchang-img" alt="车间3" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang4.jpg" class="gongchang-img" alt="车间4" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang5.jpg" class="gongchang-img" alt="车间5" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang6.jpg" class="gongchang-img" alt="车间6" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang7.jpg" class="gongchang-img" alt="车间7" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang8.jpg" class="gongchang-img" alt="车间8" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang9.jpg" class="gongchang-img" alt="车间9" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang10.jpg" class="gongchang-img" alt="车间10" onclick="openLightbox(this.src)"></div>
+            <!-- 复制一遍无缝循环 -->
             <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang1.jpg" class="gongchang-img" alt="车间1" onclick="openLightbox(this.src)"></div>
             <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang2.jpg" class="gongchang-img" alt="车间2" onclick="openLightbox(this.src)"></div>
             <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang3.jpg" class="gongchang-img" alt="车间3" onclick="openLightbox(this.src)"></div>
@@ -296,8 +320,29 @@
     <div class="container">
         <h2 class="section-title translate" data-zh="产品展厅" data-en="Product Showroom" data-ar="صالة عرض المنتجات" data-ru="Выставочный зал" data-es="Sala de exposición" data-hi="उत्पाद शोरूम">产品展厅</h2>
     </div>
-    <div class="scroll-track" id="zhantingTrack">
+    <div class="zhanting-outer" id="zhantingOuter">
         <div class="zhanting-list">
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting1.jpg" class="zhanting-img" alt="展厅1" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting2.jpg" class="zhanting-img" alt="展厅2" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting3.jpg" class="zhanting-img" alt="展厅3" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting4.jpg" class="zhanting-img" alt="展厅4" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting5.jpg" class="zhanting-img" alt="展厅5" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting6.jpg" class="zhanting-img" alt="展厅6" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting7.jpg" class="zhanting-img" alt="展厅7" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting8.jpg" class="zhanting-img" alt="展厅8" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting9.jpg" class="zhanting-img" alt="展厅9" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting10.jpg" class="zhanting-img" alt="展厅10" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting11.jpg" class="zhanting-img" alt="展厅11" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting12.jpg" class="zhanting-img" alt="展厅12" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting13.jpg" class="zhanting-img" alt="展厅13" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting14.jpg" class="zhanting-img" alt="展厅14" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting15.jpg" class="zhanting-img" alt="展厅15" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting16.jpg" class="zhanting-img" alt="展厅16" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting17.jpg" class="zhanting-img" alt="展厅17" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting18.jpg" class="zhanting-img" alt="展厅18" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting19.jpg" class="zhanting-img" alt="展厅19" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting20.jpg" class="zhanting-img" alt="展厅20" onclick="openLightbox(this.src)"></div>
+            <!-- 复制一遍无缝循环 -->
             <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting1.jpg" class="zhanting-img" alt="展厅1" onclick="openLightbox(this.src)"></div>
             <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting2.jpg" class="zhanting-img" alt="展厅2" onclick="openLightbox(this.src)"></div>
             <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting3.jpg" class="zhanting-img" alt="展厅3" onclick="openLightbox(this.src)"></div>
@@ -331,15 +376,8 @@
                 <p class="translate" data-zh="中国山东省威海市文登经济开发区惠州路8号" data-en="No.8 Huizhou Road, Wendeng Economic Development Zone, Weihai, Shandong, China" data-ar="رقم 8 طريق هويتشو، ويهاي، شاندونغ، الصين" data-ru="№8 Хуйчжоу Лу, Вэньдэн, Ухай, Шаньдун, Китай" data-es="N°8 Calle Huizhou, Wendeng, Weihai, Shandong, China" data-hi="हुईज़ोउ रोड नं.8, वेनडेंग, वेइहाई, शांडोंग, चीन">中国山东省威海市文登经济开发区惠州路8号</p>
             </div>
             <div class="footer-info"><i class="fa-solid fa-phone"></i><p>+86 15318298038</p></div>
-            <div class="footer-info"><i class="fa-solid fa-envelope"></i><p>aba88588@gmail.com</p></div>
+            <div class="footer-info"><i class="fa-solid fa-envelope"></i><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="563734376e6e636e6e16313b373f3a7835393b">[email&#160;protected]</a></p></div>
             <div class="footer-info"><i class="fa-brands fa-whatsapp"></i><p>+86 15318298038</p></div>
-            <div class="footer-info"><i class="fa-brands fa-tiktok"></i><p>@liangjunshuai</p></div>
-            <div class="footer-info"><i class="fa-brands fa-facebook-f"></i><p>@liangjunshuai</p></div>
-            <div class="footer-info"><i class="fa-brands fa-instagram"></i><p>@liangjunshuai</p></div>
-            <div class="footer-info"><i class="fa-brands fa-youtube"></i><p>@liangjunshuai</p></div>
-            <div class="footer-info"><i class="fa-brands fa-tiktok"></i>
-                <p class="translate" data-zh="抖音号：73622049138" data-en="Douyin ID: 73622049138" data-ar="دويين: 73622049138" data-ru="Douyin: 73622049138" data-es="Douyin: 73622049138" data-hi="डोयिन: 73622049138">抖音号：73622049138</p>
-            </div>
         </div>
         <div class="footer-right">
             <h3 class="form-title translate" data-zh="联系我们" data-en="Contact Us" data-ar="اتصل بنا" data-ru="Связаться" data-es="Contáctenos" data-hi="संपर्क करें">联系我们</h3>
@@ -372,10 +410,11 @@
 <!-- 社交悬浮 -->
 <div class="social-float">
     <a href="https://www.tiktok.com/@liangjunshuai" target="_blank" class="social-float-link social-tiktok"><i class="fa-brands fa-tiktok"></i></a>
-    <a href="https://www.facebook.com/liangjunshuai" target="_blank" class="social-float-link social-facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://www.facebook.com/profile.php?id=100027284083778" target="_blank" class="social-float-link social-facebook"><i class="fa-brands fa-facebook-f"></i></a>
     <a href="https://www.instagram.com/liangjunshuai" target="_blank" class="social-float-link social-instagram"><i class="fa-brands fa-instagram"></i></a>
     <a href="https://www.youtube.com/@liangjunshuai" target="_blank" class="social-float-link social-youtube"><i class="fa-brands fa-youtube"></i></a>
     <a href="https://www.douyin.com/user/73622049138" target="_blank" class="social-float-link social-douyin"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://www.threads.com/@liangjunshuai" target="_blank" class="social-float-link social-threads"><i class="fa-brands fa-threads"></i></a>
 </div>
 
 <!-- 灯箱放大 -->
@@ -384,7 +423,7 @@
     <img id="lightboxImg" src="" alt="放大图片">
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // 多语言
     const langBtns = document.querySelectorAll('.lang-btn');
     const translateEls = document.querySelectorAll('.translate');
@@ -414,7 +453,7 @@
     document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 
     // 鼠标拖动滚动
-    ['gongchangTrack', 'zhantingTrack'].forEach(id => {
+    ['gongchangOuter', 'zhantingOuter'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         let isDown = false, startX, scrollLeft;
@@ -428,6 +467,4 @@
             el.scrollLeft = scrollLeft - (x - startX) * 1.5;
         });
     });
-</script>
-</body>
-</html>
+        el.addEventListener('mouseleave', ()
