@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="中国五金工具供应商，专业外贸出口，合作工厂：威力工具集团">
+    <title>中国五金工具供应商 - 专业外贸出口</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", "Microsoft Yahei", Arial, sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #f25c27; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e04a17; }
+        body { color: #333; background-color: #f8f8f8; line-height: 1.6; }
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; padding: 0 10px; }
+        a { text-decoration: none; color: inherit; }
+
+        .section-title {
+            font-size: 32px; color: #f25c27; text-align: center;
+            margin-bottom: 40px; padding-bottom: 12px;
+            position: relative; display: inline-block;
+            margin-left: 50%; transform: translateX(-50%); font-weight: 700;
+        }
+        .section-title::after {
+            content: ""; position: absolute; bottom: 0; left: 10%; width: 80%;
+            height: 3px; background: linear-gradient(90deg, transparent, #f25c27, transparent);
+            border-radius: 3px;
+        }
+
+        /* 顶部栏 */
+        .top-bar {
+            background: linear-gradient(135deg, #f25c27 0%, #e04a17 100%);
+            color: white; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .top-left { display: flex; gap: 25px; flex-wrap: wrap; }
+        .top-left span { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+        .top-left span i { font-size: 18px; color: #fff8f5; }
+        .lang-switch { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .lang-btn {
+            padding: 8px 16px; border: none; border-radius: 6px;
+            background-color: rgba(255,255,255,0.2); color: white;
+            cursor: pointer; font-size: 14px; font-weight: 500; transition: all 0.3s;
+        }
+        .lang-btn:hover { background-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .lang-btn.active { background-color: white; color: #f25c27; font-weight: 600; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
+
+        /* 导航 */
+        .header {
+            background-color: white; padding: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 99;
+        }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo h1 { font-size: 26px; color: #f25c27; font-weight: 800; }
+        .nav-link { font-size: 17px; font-weight: 600; color: #333; padding: 10px 20px; border-radius: 8px; transition: all 0.3s; }
+        .nav-link:hover { color: white; background-color: #f25c27; box-shadow: 0 4px 12px rgba(242,92,39,0.3); }
+
+        /* Banner 自动轮播 */
+        .banner-section { width: 100%; overflow: hidden; margin-bottom: 10px; }
+        .banner-track { display: flex; width: max-content; animation: bannerScroll 25s linear infinite; }
+        .banner-track:hover { animation-play-state: paused; }
+        .banner-img { width: 100vw; height: 420px; object-fit: cover; flex-shrink: 0; cursor: pointer; }
+        @keyframes bannerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* 优势栏 */
+        .advantage-bar { background: white; padding: 35px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.04); margin: 20px 0; }
+        .advantage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .advantage-item { text-align: center; padding: 20px; border-radius: 12px; transition: all 0.3s; }
+        .advantage-item:hover { background: #fff5f2; transform: translateY(-4px); }
+        .advantage-item i { font-size: 36px; color: #f25c27; margin-bottom: 12px; display: block; }
+        .advantage-item h3 { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 6px; }
+        .advantage-item p { font-size: 14px; color: #666; }
+
+        /* 通用区块 */
+        .gallery-section { padding: 70px 0; margin: 20px 0; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
+        .gallery-section.white { background-color: white; }
+        .gallery-section.grey { background-color: #f8f8f8; }
+
+        /* 横向滚动容器 */
+        .scroll-track {
+            width: 100%; overflow-x: auto; overflow-y: hidden;
+            padding: 10px 20px 25px;
+            scrollbar-width: thin; scrollbar-color: #f25c27 #f1f1f1;
+            cursor: grab; user-select: none;
+        }
+        .scroll-track:active { cursor: grabbing; }
+
+        /* 工厂车间 两行 */
+        .gongchang-grid {
+            display: grid;
+            grid-template-rows: repeat(2, auto);
+            grid-auto-flow: column;
+            grid-auto-columns: 360px;
+            gap: 18px; width: max-content;
+        }
+        .gongchang-item {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+        }
+        .gongchang-item:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+        .gongchang-img { width: 100%; height: 210px; object-fit: cover; display: block; }
+
+        /* 展厅 单行 */
+        .zhanting-list { display: flex; gap: 20px; width: max-content; }
+        .zhanting-item {
+            width: 380px; flex-shrink: 0;
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+        }
+        .zhanting-item:hover { transform: translateY(-8px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+        .zhanting-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+
+        /* 灯箱 */
+        .lightbox {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.92);
+            z-index: 9999; justify-content: center; align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .lightbox-close { position: fixed; top: 20px; right: 30px; color: white; font-size: 44px; cursor: pointer; line-height: 1; z-index: 10000; }
+        .lightbox-close:hover { color: #f25c27; }
+
+        /* 页脚 */
+        .footer {
+            background: linear-gradient(135deg, #f25c27 0%, #e04a17 100%);
+            color: white; padding: 80px 0 30px; border-radius: 12px 12px 0 0; margin-top: 30px;
+        }
+        .footer .container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        .footer-left h3, .footer-right .form-title { font-size: 24px; margin-bottom: 30px; font-weight: 700; }
+        .footer-info { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; font-size: 15px; }
+        .footer-info i { font-size: 20px; margin-top: 3px; color: #fff8f5; }
+        .contact-form { display: flex; flex-direction: column; gap: 18px; }
+        .contact-form input, .contact-form textarea {
+            padding: 15px 20px; border: none; border-radius: 8px;
+            font-size: 15px; color: #333; resize: none; box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        .contact-form .file-input { padding: 12px 20px; background-color: white; border-radius: 8px; color: #666; font-size: 15px; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: 2px solid #ff8855; box-shadow: 0 0 0 4px rgba(255,136,85,0.2); }
+        .submit-btn {
+            padding: 15px; background-color: white; color: #f25c27;
+            border: none; border-radius: 8px; font-size: 17px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s;
+        }
+        .submit-btn:hover { background-color: #ff8855; color: white; transform: translateY(-2px); }
+        .copyright { text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 14px; color: #fff8f5; }
+
+        /* 悬浮窗 */
+        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; z-index: 998; }
+        .whatsapp-link {
+            display: flex; align-items: center; justify-content: center;
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, #25d366 0%, #1ebe58 100%);
+            color: white; border-radius: 50%; box-shadow: 0 8px 20px rgba(37,211,102,0.3); font-size: 32px; transition: all 0.3s;
+        }
+        .whatsapp-link:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 25px rgba(37,211,102,0.4); }
+        .social-float { position: fixed; bottom: 40px; left: 40px; z-index: 998; display: flex; flex-direction: column; gap: 12px; }
+        .social-float-link {
+            display: flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15); font-size: 26px; color: white; transition: all 0.3s;
+        }
+        .social-float-link:hover { transform: translateY(-5px) scale(1.05); }
+        .social-tiktok { background: linear-gradient(135deg, #000 0%, #222 100%); }
+        .social-facebook { background: linear-gradient(135deg, #1877f2 0%, #1466d0 100%); }
+        .social-instagram { background: linear-gradient(135deg, #e4405f 0%, #d2304c 100%); }
+        .social-youtube { background: linear-gradient(135deg, #ff0000 0%, #e60000 100%); }
+        .social-douyin { background: linear-gradient(135deg, #fe2c55 0%, #e8244a 100%); }
+
+        /* 移动端 */
+        @media (max-width: 768px) {
+            .section-title { font-size: 24px; margin-bottom: 25px; }
+            .banner-img { height: 220px; }
+            .advantage-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-section { padding: 50px 0; }
+            .gongchang-grid { grid-auto-columns: 280px; }
+            .gongchang-img { height: 160px; }
+            .zhanting-item { width: 280px; }
+            .zhanting-img { height: 180px; }
+            .footer .container { grid-template-columns: 1fr; gap: 30px; }
+            .footer { padding: 60px 0 20px; }
+            .whatsapp-link { width: 56px; height: 56px; font-size: 26px; }
+            .social-float-link { width: 48px; height: 48px; font-size: 22px; }
+            .whatsapp-float { bottom: 25px; right: 25px; }
+            .social-float { bottom: 25px; left: 25px; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部栏 -->
+<div class="top-bar">
+    <div class="container">
+        <div class="top-left">
+            <span><i class="fa-solid fa-phone"></i> +86 15318298038</span>
+            <span><i class="fa-solid fa-envelope"></i> aba88588@gmail.com</span>
+            <span><i class="fa-solid fa-location-dot"></i> 中国山东省威海市文登经济开发区惠州路8号</span>
+        </div>
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="zh">中文</button>
+            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="ar">العربية</button>
+            <button class="lang-btn" data-lang="ru">Русский</button>
+            <button class="lang-btn" data-lang="es">Español</button>
+            <button class="lang-btn" data-lang="hi">हिन्दी</button>
+        </div>
+    </div>
+</div>
+
+<!-- 导航 -->
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <h1 class="translate" data-zh="中国五金工具供应商" data-en="China Hardware Tools Supplier" data-ar="مورد أدوات المعدن الصيني" data-ru="Китайский поставщик инструментов" data-es="Proveedor chino de herramientas" data-hi="चीनी हार्डवेयर उपकरण आपूर्तिकर्ता">中国五金工具供应商</h1>
+        </div>
+        <nav>
+            <a href="#footer" class="nav-link translate" data-zh="联系我们" data-en="Contact Us" data-ar="اتصل بنا" data-ru="Связаться" data-es="Contáctenos" data-hi="संपर्क करें">联系我们</a>
+        </nav>
+    </div>
+</header>
+
+<!-- 第一层：外观图自动轮播 -->
+<section class="banner-section">
+    <div class="banner-track">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan1.jpg" class="banner-img" alt="工厂外观1" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan2.png" class="banner-img" alt="工厂外观2" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan3.png" class="banner-img" alt="工厂外观3" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan4.png" class="banner-img" alt="工厂外观4" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan5.png" class="banner-img" alt="工厂外观5" onclick="openLightbox(this.src)">
+        <!-- 复制一遍无缝循环 -->
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan1.jpg" class="banner-img" alt="工厂外观1" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan2.png" class="banner-img" alt="工厂外观2" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan3.png" class="banner-img" alt="工厂外观3" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan4.png" class="banner-img" alt="工厂外观4" onclick="openLightbox(this.src)">
+        <img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/waiguan5.png" class="banner-img" alt="工厂外观5" onclick="openLightbox(this.src)">
+    </div>
+</section>
+
+<!-- 优势栏 -->
+<section class="advantage-bar">
+    <div class="container">
+        <div class="advantage-grid">
+            <div class="advantage-item">
+                <i class="fa-solid fa-factory"></i>
+                <h3 class="translate" data-zh="合作工厂" data-en="Partner Factory" data-ar="مصنع شريك" data-ru="Завод-партнер" data-es="Fábrica asociada" data-hi="साझेदार कारखाना">合作工厂</h3>
+                <p class="translate" data-zh="威力工具集团" data-en="Maxpower Tools Group" data-ar="مجموعة ماكسباور" data-ru="Maxpower Tools Group" data-es="Maxpower Tools Group" data-hi="मैक्सपावर टूल्स">威力工具集团</p>
+            </div>
+            <div class="advantage-item">
+                <i class="fa-solid fa-box-open"></i>
+                <h3 class="translate" data-zh="支持小批量" data-en="Small Orders OK" data-ar="طلبات صغيرة مقبولة" data-ru="Малые заказы" data-es="Pedidos pequeños" data-hi="छोटे ऑर्डर">支持小批量</h3>
+                <p class="translate" data-zh="灵活起订，满足需求" data-en="Flexible MOQ" data-ar="كميات مرنة" data-ru="Гибкий MOQ" data-es="MOQ flexible" data-hi="लचीला MOQ">灵活起订，满足需求</p>
+            </div>
+            <div class="advantage-item">
+                <i class="fa-solid fa-clock"></i>
+                <h3 class="translate" data-zh="快速响应" data-en="Fast Response" data-ar="استجابة سريعة" data-ru="Быстрый ответ" data-es="Respuesta rápida" data-hi="तेज़ प्रतिक्रिया">快速响应</h3>
+                <p class="translate" data-zh="24小时内报价" data-en="Quote within 24h" data-ar="عرض خلال 24 ساعة" data-ru="Цитата за 24ч" data-es="Cotización en 24h" data-hi="24 घंटे में कोट">24小时内报价</p>
+            </div>
+            <div class="advantage-item">
+                <i class="fa-solid fa-globe"></i>
+                <h3 class="translate" data-zh="专注外贸出口" data-en="Export Specialist" data-ar="متخصص في التصدير" data-ru="Экспорт" data-es="Exportación" data-hi="निर्यात विशेषज्ञ">专注外贸出口</h3>
+                <p class="translate" data-zh="全球发货，经验丰富" data-en="Worldwide shipping" data-ar="شحن عالمي" data-ru="Доставка по миру" data-es="Envío mundial" data-hi="विश्वव्यापी शिपिंग">全球发货，经验丰富</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 第二层：生产车间（两行横向滚动） -->
+<section class="gallery-section white">
+    <div class="container">
+        <h2 class="section-title translate" data-zh="生产车间" data-en="Production Workshop" data-ar="ورشة الإنتاج" data-ru="Производственный цех" data-es="Taller de producción" data-hi="उत्पादन कार्यशाला">生产车间</h2>
+    </div>
+    <div class="scroll-track" id="gongchangTrack">
+        <div class="gongchang-grid">
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang1.jpg" class="gongchang-img" alt="车间1" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang2.jpg" class="gongchang-img" alt="车间2" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang3.jpg" class="gongchang-img" alt="车间3" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang4.jpg" class="gongchang-img" alt="车间4" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang5.jpg" class="gongchang-img" alt="车间5" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang6.jpg" class="gongchang-img" alt="车间6" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang7.jpg" class="gongchang-img" alt="车间7" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang8.jpg" class="gongchang-img" alt="车间8" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang9.jpg" class="gongchang-img" alt="车间9" onclick="openLightbox(this.src)"></div>
+            <div class="gongchang-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/gongchang10.jpg" class="gongchang-img" alt="车间10" onclick="openLightbox(this.src)"></div>
+        </div>
+    </div>
+</section>
+
+<!-- 第三层：产品展厅（单行横向滚动） -->
+<section class="gallery-section grey">
+    <div class="container">
+        <h2 class="section-title translate" data-zh="产品展厅" data-en="Product Showroom" data-ar="صالة عرض المنتجات" data-ru="Выставочный зал" data-es="Sala de exposición" data-hi="उत्पाद शोरूम">产品展厅</h2>
+    </div>
+    <div class="scroll-track" id="zhantingTrack">
+        <div class="zhanting-list">
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting1.jpg" class="zhanting-img" alt="展厅1" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting2.jpg" class="zhanting-img" alt="展厅2" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting3.jpg" class="zhanting-img" alt="展厅3" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting4.jpg" class="zhanting-img" alt="展厅4" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting5.jpg" class="zhanting-img" alt="展厅5" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting6.jpg" class="zhanting-img" alt="展厅6" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting7.jpg" class="zhanting-img" alt="展厅7" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting8.jpg" class="zhanting-img" alt="展厅8" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting9.jpg" class="zhanting-img" alt="展厅9" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting10.jpg" class="zhanting-img" alt="展厅10" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting11.jpg" class="zhanting-img" alt="展厅11" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting12.jpg" class="zhanting-img" alt="展厅12" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting13.jpg" class="zhanting-img" alt="展厅13" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting14.jpg" class="zhanting-img" alt="展厅14" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting15.jpg" class="zhanting-img" alt="展厅15" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting16.jpg" class="zhanting-img" alt="展厅16" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting17.jpg" class="zhanting-img" alt="展厅17" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting18.jpg" class="zhanting-img" alt="展厅18" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting19.jpg" class="zhanting-img" alt="展厅19" onclick="openLightbox(this.src)"></div>
+            <div class="zhanting-item"><img src="https://raw.githubusercontent.com/ABA88588/ABA88588.github.io/main/zhanting20.jpg" class="zhanting-img" alt="展厅20" onclick="openLightbox(this.src)"></div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="footer-left">
+            <h3 class="translate" data-zh="中国五金工具供应商" data-en="China Hardware Tools Supplier" data-ar="مورد أدوات المعدن الصيني" data-ru="Китайский поставщик инструментов" data-es="Proveedor chino de herramientas" data-hi="चीनी हार्डवेयर उपकरण आपूर्तिकर्ता">中国五金工具供应商</h3>
+            <div class="footer-info"><i class="fa-solid fa-location-dot"></i>
+                <p class="translate" data-zh="中国山东省威海市文登经济开发区惠州路8号" data-en="No.8 Huizhou Road, Wendeng Economic Development Zone, Weihai, Shandong, China" data-ar="رقم 8 طريق هويتشو، ويهاي، شاندونغ، الصين" data-ru="№8 Хуйчжоу Лу, Вэньдэн, Ухай, Шаньдун, Китай" data-es="N°8 Calle Huizhou, Wendeng, Weihai, Shandong, China" data-hi="हुईज़ोउ रोड नं.8, वेनडेंग, वेइहाई, शांडोंग, चीन">中国山东省威海市文登经济开发区惠州路8号</p>
+            </div>
+            <div class="footer-info"><i class="fa-solid fa-phone"></i><p>+86 15318298038</p></div>
+            <div class="footer-info"><i class="fa-solid fa-envelope"></i><p>aba88588@gmail.com</p></div>
+            <div class="footer-info"><i class="fa-brands fa-whatsapp"></i><p>+86 15318298038</p></div>
+            <div class="footer-info"><i class="fa-brands fa-tiktok"></i><p>@liangjunshuai</p></div>
+            <div class="footer-info"><i class="fa-brands fa-facebook-f"></i><p>@liangjunshuai</p></div>
+            <div class="footer-info"><i class="fa-brands fa-instagram"></i><p>@liangjunshuai</p></div>
+            <div class="footer-info"><i class="fa-brands fa-youtube"></i><p>@liangjunshuai</p></div>
+            <div class="footer-info"><i class="fa-brands fa-tiktok"></i>
+                <p class="translate" data-zh="抖音号：73622049138" data-en="Douyin ID: 73622049138" data-ar="دويين: 73622049138" data-ru="Douyin: 73622049138" data-es="Douyin: 73622049138" data-hi="डोयिन: 73622049138">抖音号：73622049138</p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <h3 class="form-title translate" data-zh="联系我们" data-en="Contact Us" data-ar="اتصل بنا" data-ru="Связаться" data-es="Contáctenos" data-hi="संपर्क करें">联系我们</h3>
+            <form class="contact-form" action="https://formsubmit.co/aba88588@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" class="translate-placeholder" placeholder="您的姓名" data-zh="您的姓名" data-en="Your Name" data-ar="اسمك" data-ru="Ваше имя" data-es="Tu nombre" data-hi="आपका नाम" required>
+                <input type="email" name="email" class="translate-placeholder" placeholder="您的邮箱" data-zh="您的邮箱" data-en="Your Email" data-ar="بريدك الإلكتروني" data-ru="Ваш Email" data-es="Tu correo" data-hi="आपका ईमेल" required>
+                <textarea name="message" rows="4" class="translate-placeholder" placeholder="您的留言/需求（比如：想采购XX工具，询价）" data-zh="您的留言/需求（比如：想采购XX工具，询价）" data-en="Your Message/Requirements (e.g.: Want to purchase XX tools)" data-ar="رسالتك/متطلباتك" data-ru="Ваше сообщение/требования" data-es="Su mensaje/requisitos" data-hi="आपका संदेश/आवश्यकताएं" required></textarea>
+                <input type="file" name="attachment" class="file-input" accept="image/png,image/jpeg,.pdf,.docx">
+                <input type="hidden" name="_subject" value="【新客户咨询】- 五金工具供应商">
+                <input type="hidden" name="_next" value="https://ABA88588.github.io">
+                <input type="hidden" name="_autoresponse" value="您好！您的咨询已收到，我们会在24小时内回复您，感谢您的关注！">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <button type="submit" class="submit-btn translate" data-zh="发送邮件" data-en="Send Email" data-ar="إرسال" data-ru="Отправить" data-es="Enviar" data-hi="भेजें">发送邮件</button>
+            </form>
+        </div>
+    </div>
+    <div class="copyright">
+        <p class="translate" data-zh="&copy; 2026 中国五金工具供应商 版权所有" data-en="&copy; 2026 China Hardware Tools Supplier All Rights Reserved" data-ar="&copy; 2026 جميع الحقوق محفوظة" data-ru="&copy; 2026 Все права защищены" data-es="&copy; 2026 Todos los derechos reservados" data-hi="&copy; 2026 सर्वाधिकार सुरक्षित">&copy; 2026 中国五金工具供应商 版权所有</p>
+    </div>
+</footer>
+
+<!-- WhatsApp悬浮 -->
+<div class="whatsapp-float">
+    <a href="https://wa.me/8615318298038" target="_blank" class="whatsapp-link">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+</div>
+
+<!-- 社交悬浮 -->
+<div class="social-float">
+    <a href="https://www.tiktok.com/@liangjunshuai" target="_blank" class="social-float-link social-tiktok"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="https://www.facebook.com/liangjunshuai" target="_blank" class="social-float-link social-facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/liangjunshuai" target="_blank" class="social-float-link social-instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.youtube.com/@liangjunshuai" target="_blank" class="social-float-link social-youtube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="https://www.douyin.com/user/73622049138" target="_blank" class="social-float-link social-douyin"><i class="fa-brands fa-tiktok"></i></a>
+</div>
+
+<!-- 灯箱放大 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" src="" alt="放大图片">
+</div>
+
+<script>
+    // 多语言
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const translateEls = document.querySelectorAll('.translate');
+    const placeholderEls = document.querySelectorAll('.translate-placeholder');
+
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            langBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const lang = btn.dataset.lang;
+            translateEls.forEach(el => { if(el.dataset[lang]) el.innerHTML = el.dataset[lang]; });
+            placeholderEls.forEach(el => { if(el.dataset[lang]) el.placeholder = el.dataset[lang]; });
+            document.documentElement.lang = lang;
+        });
+    });
+
+    // 灯箱
+    function openLightbox(src) {
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+    // 鼠标拖动滚动
+    ['gongchangTrack', 'zhantingTrack'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let isDown = false, startX, scrollLeft;
+        el.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
+        el.addEventListener('mouseleave', () => isDown = false);
+        el.addEventListener('mouseup', () => isDown = false);
+        el.addEventListener('mousemove', e => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - el.offsetLeft;
+            el.scrollLeft = scrollLeft - (x - startX) * 1.5;
+        });
+    });
+</script>
+</body>
+</html>
